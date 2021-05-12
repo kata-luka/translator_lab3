@@ -1,0 +1,5 @@
+program
+    a = 2
+    b = c*c+1
+end
+
