@@ -1,30 +1,8 @@
-import pathlib
-import re
+from drafts.FCorrect import FCorrect
 
 num = 0
-def func():
-    variables = []
-    with open("test1.my_lang", "r+") as f:
-
-        for k, i in enumerate(f):
-            if '=' in i:
-                nums = re.findall('(\d+)', i)
-                buff_v = [elem for elem in i if elem.isalpha()]
-                variables.append(buff_v)
-
-                if any([True for el in variables if len(el)>1]):
-                    f.close()
-                    print('RunTime ERROR: \n\t  Значення змінної c:(3, type_undef, val_undef) не визначене. Зустрылось у (c, ident) + (c, ident)')
-                    exit(2)
-
-                path = pathlib.Path('test1.my_lang')
-                result = i.replace(' ', '')
-                if '^' in result:
-                    result = result.replace('^', '**')
-                path.write_text(path.read_text().replace(i, i[:i.index(nums[0])] + str(eval(result[2:])) + '\n'))
-
 # FSuccess - ознака успішності розбору
-func()
+FCorrect()
 AnalyzingLogs = []
 FSuccess = (True, 'Lexer')
 
@@ -32,8 +10,8 @@ FSuccess = (True, 'Lexer')
 tableOfLanguageTokens = \
     {'program': 'keyword', 'end': 'keyword', \
      'int': 'keyword', 'bool': 'keyword', 'real': 'keyword', 'for': 'keyword', 'if': 'keyword', 'then': 'keyword',
-     'goto': 'keyword', 'else': 'keyword', 'false': 'keyword', 'true': 'keyword', \
-     '=': 'assign_op', '.': 'dot', '.': 'dot', ' ': 'ws', '\t': 'ws', '\n': 'nl', '-': 'add_op', 'print': 'keyword',
+     'by': 'keyword', 'do': 'keyword', 'while': 'keyword', 'fi': 'keyword', 'else': 'keyword', 'false': 'keyword', 'true': 'keyword', \
+     '=': 'assign_op', '.': 'dot', ',': 'dot', ' ': 'ws', '\t': 'ws', '\n': 'nl', '-': 'add_op', 'print': 'keyword',
      'input': 'keyword', \
      '+': 'add_op', '*': 'mult_op', '^': 'pow_op', '/': 'mult_op', '(': 'par_op', ')': 'par_op', '{': 'punct',
      '}': 'punct', ';': 'punct', \
@@ -68,9 +46,9 @@ stf = {(0, 'Letter'): 1, (1, 'Letter'): 1, (1, 'Digit'): 1, (1, 'other'): 2, \
 initState = 0  # q0 - стартовий стан
 state = initState
 
-F = {2, 6, 9, 12, 13, 14, 101, 102, 21, 22, 23, 31, 33, 40}
+F = {2, 6, 8, 9, 12, 13, 14, 101, 102, 21, 22, 23, 31, 33, 40, 43}
 Fstar = {2, 6, 9, 23, 33}  # зірочка
-Ferror = {101, 102}  # обробка помилок
+Ferror = {101, 102, 103, 105}  # обробка помилок
 
 tableOfIdents = {}  # Таблиця ідентифікаторів
 tableOfConst = {}  # Таблиця констант

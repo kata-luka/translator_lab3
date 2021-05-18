@@ -1,5 +1,14 @@
 program
-    a = 2
-    b = c*c+1
+    a = 1
+    b = 1.2
+    c = true
+
+    if c == true then
+        b = b + a
+    else
+        b = 0
+    fi
 end
+
+
 
